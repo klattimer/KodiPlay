@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>KodiPlay</title>
+    <script type="text/javascript" src="javascript/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="javascript/modules.js"></script>
+    <script type="text/javascript">
+
+
+function getPlaylistId(type, callback) {
+    var getPlaylistId = '{"jsonrpc": "2.0", "method": "Playlist.GetPlaylists", "id": 1}';
+    
+    ajaxPost(getPlaylistId, function (response) {
+             if (response && response.result.length > 0) {
+                var playlists = response.result;
+                for (var i = 0; i < playlists.length; i++) {
+                    if (playlists[i].type == type) {
+                        callback(playlists[i].playlistid);
+                    }
+                }
+             } else {
+                callback(null);
+             }
+            });
+}
+    
+function clearPlaylist(callback) {
+    var clearVideoPlaylist = '{"jsonrpc": "2.0", "method": "Playlist.Clear", "params":{"playlistid":1}, "id": 1}';
+    var clearAudioPlaylist = '{"jsonrpc": "2.0", "method": "Playlist.Clear", "params":{"playlistid":0}, "id": 1}';
+    
+    ajaxPost(clearVideoPlaylist, function () {
+             ajaxPost(clearAudioPlaylist, function (response) {
+                      callback(response);
+                      });
+             });
+}
+    
+function getActivePlayerId(callback) {
+    var getActivePlayers = '{"jsonrpc": "2.0", "method": "Player.GetActivePlayers", "id": 1}';
+    
+    ajaxPost(getActivePlayers, function (response) {
+             if (response && response.result.length > 0) {
+             var playerid = response.result[0].playerid;
+             var type = response.result[0].type;
+             callback(playerid, type);
+             } else {
+             callback(null, null);
+             }
+             });
+}
+
+function getURL() {
+    var url;
+    var port;
+    var username;
+    var password;
+    
+    url = safari.extension.settings.host;
+    port = safari.extension.settings.port;
+    username = safari.extension.secureSettings.username;
+    password = safari.extension.secureSettings.password;
+    
+    var loginPortion = '';
+    if (username && password) {
+        loginPortion = username + ':' + password + '@';
+    }
+    
+    return 'http://'+ loginPortion + url + ':' + port;
+}
+
+function ajaxPost(data, callback, timeout) {
+    var url = getURL();
+    var fullPath = url + "/jsonrpc";
+    var defaultTimeout = 5000;
+    if (timeout) {
+        defaultTimeout = timeout;
+    }
+    console.log("POST " + data);
+    
+    jQuery.ajax({
+                type: 'POST',
+                url: fullPath,
+                success: function (response) {
+                console.log(response);
+                callback(response);
+                },
+                contentType: "application/json",
+                data: data,
+                dataType: 'json',
+                timeout: defaultTimeout,
+                error: function (jqXHR, textStatus, erroThrown) {
+                callback(0);
+                }
+                });
+}
+
+function addItemsToPlaylist(items, callback) {
+    if (!items || items.length <= 0) {
+        callback(null);
+        return;
+    }
+    // assuming all of the same type
+    var contentType = items[0].contentType;
+    if (contentType != 'picture') {
+        getPlaylistId(contentType, function (playlistId) {
+                      getActivePlayerId(function (playerId) {
+                                        //if nothing is playing, clear the playlist
+                                        if (playerId == null) {
+                                        clearPlaylist(function() {});
+                                        }
+                                        var addToPlaylist = "[";
+                                        for (var i = 0; i < items.length; i++) {
+                                        if (i > 0) {
+                                        addToPlaylist += ",";
+                                        }
+                                        addToPlaylist += '{"jsonrpc": "2.0", "method": "Playlist.Add", "params":{"playlistid":' + playlistId + ', "item" :{ "file" : "' + items[i].pluginPath + '" }}, "id" :' + (i + 1) + '}';
+                                        }
+                                        addToPlaylist += "]";
+                                        
+                                        ajaxPost(addToPlaylist, function (response) {
+                                                 var playVideo = '{"jsonrpc": "2.0", "method": "Player.Open", "params":{"item":{"playlistid":' + playlistId + ', "position" : 0}}, "id": 1}';
+                                                 
+                                                 //if nothing is playing, play what we inserted
+                                                 if (playerId == null) {
+                                                 ajaxPost(playVideo, function (response_2) {
+                                                          callback(response_2);
+                                                          }, 10000);
+                                                 } else {
+                                                 callback(response);
+                                                 }
+                                                 });
+                                        });
+                      });
+    } else {
+        var playImage = '{"jsonrpc": "2.0", "method": "Player.Open", "params":{"item":{ "file" : "' + items[0].pluginPath + '" }}, "id": 1}';
+        ajaxPost(playImage, function () {});
+    }
+}
+
+function getPluginPath(url, callback) {
+    for (var i = 0; i < allModules.length; i++) {
+        var module = allModules[i];
+        if (module.canHandleUrl(url)) {
+            module.getPluginPath(url, function(path) {
+                                 callback(module.getMediaType(), path);
+                                 });
+        }
+    }
+}
+    
+function queueItem(url, callback) {
+    getPluginPath(url, function (contentType, pluginPath) {
+                  addItemsToPlaylist([
+                                      {"contentType": contentType, "pluginPath": pluginPath}
+                                      ], function (result) {
+                                         callback(result);
+                                    });
+                  });
+}
+
+function canPlayUrl(url) {
+    for (var i = 0; i < allModules.length; i++) {
+        var module = allModules[i];
+        if (module.canHandleUrl(url)) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+function playUrl(url) {
+    if (safari.extension.settings.host) {
+        queueItem(url, function(result) {
+                  if (result == 0) {
+                  alert("Error attempting to play item :" + url);
+                  }
+              });
+    } else {
+        alert("Please configure KodiPlay settings in Preferences > Extensions > KodiPlay");
+    }
+}
+
+function performCommand(event) {
+    if (event.command === "kodiplay") {
+        var currentURL = event.target.browserWindow.activeTab.url;
+        if (currentURL && canPlayUrl(currentURL)) {
+            playUrl(currentURL);
+        }
+    }
+}
+    
+safari.application.addEventListener("command", performCommand, false);
+
+</script>
+</head>
+<body>Global Background Page</body>
+</html>

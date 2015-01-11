@@ -6,11 +6,51 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		368B97D11A62A5D000CAED72 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		368B97D21A62A5DA00CAED72 /* kodplay.icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kodplay.icon.png; path = images/kodplay.icon.png; sourceTree = "<group>"; };
+		368B97DD1A62BE1400CAED72 /* kodplay.icon.colour.large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kodplay.icon.colour.large.png; path = images/kodplay.icon.colour.large.png; sourceTree = "<group>"; };
+		368B97DF1A62BFD900CAED72 /* background.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = background.html; sourceTree = "<group>"; };
+		368B97E21A62C69A00CAED72 /* modules.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = modules.js; sourceTree = "<group>"; };
+		368B97E31A62C80800CAED72 /* jquery-1.11.2.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.11.2.min.js"; sourceTree = "<group>"; };
+		368B97E41A62D6FD00CAED72 /* icon-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-32.png"; sourceTree = "<group>"; };
+		368B97E51A62D6FD00CAED72 /* icon-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-48.png"; sourceTree = "<group>"; };
+		368B97E61A62D6FD00CAED72 /* icon-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-64.png"; sourceTree = "<group>"; };
+		368B97E71A62D6FD00CAED72 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		36567B6E1A62A2D50040AA06 = {
 			isa = PBXGroup;
 			children = (
+				368B97E41A62D6FD00CAED72 /* icon-32.png */,
+				368B97E51A62D6FD00CAED72 /* icon-48.png */,
+				368B97E61A62D6FD00CAED72 /* icon-64.png */,
+				368B97E71A62D6FD00CAED72 /* Settings.plist */,
+				368B97E11A62C69A00CAED72 /* Javascript */,
+				368B97DF1A62BFD900CAED72 /* background.html */,
+				368B97D31A62A5E000CAED72 /* Images */,
+				368B97D11A62A5D000CAED72 /* Info.plist */,
 			);
+			sourceTree = "<group>";
+		};
+		368B97D31A62A5E000CAED72 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				368B97DD1A62BE1400CAED72 /* kodplay.icon.colour.large.png */,
+				368B97D21A62A5DA00CAED72 /* kodplay.icon.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		368B97E11A62C69A00CAED72 /* Javascript */ = {
+			isa = PBXGroup;
+			children = (
+				368B97E31A62C80800CAED72 /* jquery-1.11.2.min.js */,
+				368B97E21A62C69A00CAED72 /* modules.js */,
+			);
+			name = Javascript;
+			path = javascript;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +214,7 @@
 				36567B781A62A2D50040AA06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

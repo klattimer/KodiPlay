@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Karl Lattimer</string>
+	<key>Builder Version</key>
+	<string>10600.2.5</string>
+	<key>CFBundleDisplayName</key>
+	<string>KodiPlay</string>
+	<key>CFBundleIdentifier</key>
+	<string>uk.org.qdh.kodiplay</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Global Page</key>
+		<string>background.html</string>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Identifier</key>
+				<string>kodiplay</string>
+				<key>Image</key>
+				<string>images/kodplay.icon.png</string>
+				<key>Label</key>
+				<string>KodiPlay</string>
+				<key>Tool Tip</key>
+				<string>Play on Kodi</string>
+			</dict>
+		</array>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict/>
+	</dict>
+	<key>Description</key>
+	<string>Play videos to Kodi media centre </string>
+	<key>DeveloperIdentifier</key>
+	<string>SYD7AF6B55</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
+	</dict>
+	<key>Website</key>
+	<string>http://www.qdh.org.uk</string>
+</dict>
+</plist>
