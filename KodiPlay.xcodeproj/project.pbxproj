@@ -17,12 +17,16 @@
 		368B97E51A62D6FD00CAED72 /* icon-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-48.png"; sourceTree = "<group>"; };
 		368B97E61A62D6FD00CAED72 /* icon-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-64.png"; sourceTree = "<group>"; };
 		368B97E71A62D6FD00CAED72 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
+		368B97E81A62D87400CAED72 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		368B97E91A62D87400CAED72 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		36567B6E1A62A2D50040AA06 = {
 			isa = PBXGroup;
 			children = (
+				368B97E81A62D87400CAED72 /* LICENSE */,
+				368B97E91A62D87400CAED72 /* README.md */,
 				368B97E41A62D6FD00CAED72 /* icon-32.png */,
 				368B97E51A62D6FD00CAED72 /* icon-48.png */,
 				368B97E61A62D6FD00CAED72 /* icon-64.png */,
