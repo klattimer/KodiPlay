@@ -272,7 +272,7 @@ var SoundcloudModule = {
     getPluginPath: function(url, callback) {
         getSoundcloudTrackId(url, function(videoId) {
             if (videoId != null) {
-                callback('plugin://plugin.audio.soundcloud/play/?id=' + videoId);
+                callback('plugin://plugin.audio.soundcloud/play/?audio_id=' + videoId);
             }
         });
     }
@@ -329,7 +329,7 @@ var VimeoModule = {
     },
     getPluginPath: function(url, callback) {
         var videoId = url.match('^(https|http)://(www\.)?vimeo.com[^/]*/(\\d+).*$')[3];
-        callback('plugin://plugin.video.vimeo/?action=play_video&videoid=' + videoId);
+        callback('plugin://plugin.video.vimeo/play/?video_id=' + videoId);
     }
 };
 
@@ -347,12 +347,12 @@ var YoutubeModule = {
     getPluginPath: function(url, callback) {
         if (url.match('v=([^&]+)')) {
             var videoId = url.match('v=([^&]+)')[1];
-            callback('plugin://plugin.video.youtube/?action=play_video&videoid=' + videoId);
+            callback('plugin://plugin.video.youtube/play/?video_id=' + videoId);
         }
 
         if (url.match('.*youtu.be/(.+)')) {
             var videoId = url.match('.*youtu.be/(.+)')[1];
-            callback('plugin://plugin.video.youtube/?action=play_video&videoid=' + videoId);
+            callback('plugin://plugin.video.youtube/play/?video_id=' + videoId);
         }
     },
     createCustomContextMenus: function() {
