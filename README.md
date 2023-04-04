@@ -1,3 +1,5 @@
+# NO LONGER MAINTAINED OR FUNCTIONAL #
+
 # KodiPlay
 
 A simple safari extension for queuing items on Kodi Media Center
